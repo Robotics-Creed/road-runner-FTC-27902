@@ -124,9 +124,7 @@ public class Clip1 extends LinearOpMode {
 
         objArm.hover();
 
-        Actions.runBlocking(
 
-        );
 
     }
 }

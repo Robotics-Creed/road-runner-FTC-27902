@@ -11,7 +11,7 @@ public class Arm extends SubsystemBase {
     private static final int ARM_POSITION_INIT = 100;
     private static final int ARM_POSITION_INTAKE = 475;
     private static final int ARM_POSITION_WALL_GRAB = 4300;
-    private static final int ARM_POSITION_WALL_UNHOOK = 1200;
+    private static final int ARM_POSITION_WALL_UNHOOK = 4100;
     private static final int ARM_POSITION_HOVER_HIGH = 1550;
     private static final int ARM_POSITION_CLIP_HIGH = 1950;
 
