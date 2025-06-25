@@ -43,6 +43,14 @@ public class Clip1 extends LinearOpMode {
         long pickTime = 200;
         long scoreTime = 300;
 
+        Claw objClaw = new Claw(
+                hardwareMap.servo.get("claw")
+        );
+
+        Arm objArm = new Arm(
+                hardwareMap.dcMotor.get("arm")
+        );
+
         Pose2d initialPose = new Pose2d(3, -61, Math.toRadians(90));
         Pose2d secondPose = new Pose2d(37, -25, Math.toRadians(90));
         Pose2d pickupPose = new Pose2d(36, -50, Math.toRadians(-90));
@@ -79,10 +87,13 @@ public class Clip1 extends LinearOpMode {
                 .splineToLinearHeading(new Pose2d(62, -25, Math.toRadians(90)), Math.toRadians(270))
                 .splineToLinearHeading(new Pose2d(62, -49, Math.toRadians(90)), Math.toRadians(270));
 
+
         waitForStart();
 
         if (isStopRequested())
             return;
+
+
 
 
         Actions.runBlocking(
