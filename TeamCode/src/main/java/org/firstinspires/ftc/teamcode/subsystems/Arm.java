@@ -28,11 +28,13 @@ public class Arm extends SubsystemBase {
 
     public Action wallgrab() {
         arm.setTargetPosition(ARM_POSITION_WALL_GRAB);
+        return null;
     }
 
     public Action wallUnhook(){
         arm.setTargetPosition(ARM_POSITION_WALL_UNHOOK);
-    }
+        return null;
+    };
 
     public void hover() {
         arm.setTargetPosition(ARM_POSITION_HOVER_HIGH);
