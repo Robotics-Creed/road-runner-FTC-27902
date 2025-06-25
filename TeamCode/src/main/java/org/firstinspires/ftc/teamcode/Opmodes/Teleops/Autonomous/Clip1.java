@@ -40,6 +40,9 @@ public class Clip1 extends LinearOpMode {
         telemetry.addData("Device Scalar", odo.getYawScalar());
         telemetry.update();
 
+        long pickTime = 200;
+        long scoreTime = 300;
+
         Pose2d initialPose = new Pose2d(3, -61, Math.toRadians(90));
         Pose2d secondPose = new Pose2d(37, -25, Math.toRadians(90));
         Pose2d pickupPose = new Pose2d(36, -50, Math.toRadians(-90));
@@ -87,18 +90,23 @@ public class Clip1 extends LinearOpMode {
                         initScore.build())
         );
 
+        sleep(50);
+
 
         Actions.runBlocking(
                 new SequentialAction(
                         samplePush.build())
         );
 
+        sleep(50);
+
         Actions.runBlocking(
                 new ParallelAction(
                         pickup.build()
-
                 )
         );
+
+        sleep(pickTime);
 
     }
 }
