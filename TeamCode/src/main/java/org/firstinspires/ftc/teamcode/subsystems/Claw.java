@@ -3,23 +3,21 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import com.acmerobotics.dashboard.config.Config;
 import com.arcrobotics.ftclib.command.Command;
 import com.arcrobotics.ftclib.command.InstantCommand;
-import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.Servo;
 @Config
-public class Claw extends SubsystemBase{
+public class Claw {
     private Servo claw = null;
-    public static final double ClawServo_CLOSE = 0.68;
-    public static final double ClawServo_OPEN = 0.5;
-    private boolean isClawOpen;
+    public static final double ClawServo_CLOSE = 0.5;
+    public static final double ClawServo_OPEN = 0.68;
+    boolean isClawOpen = false;
 
-
-    public Claw(HardwareDevice hardwareMap) {
-        claw.getClass();
-        claw.getDeviceName();
+    public Claw(Servo Claw) {
+        this.claw = Claw;
         claw.setPosition(ClawServo_CLOSE);
     }
-    public void switchClaw() {
+
+    public void toggleClaw() {
         if (isClawOpen) {
             claw.setPosition(ClawServo_CLOSE);
         } else {
@@ -27,31 +25,22 @@ public class Claw extends SubsystemBase{
         }
         isClawOpen = !isClawOpen;
     }
+
     public void openClaw() {
         isClawOpen = true;
         claw.setPosition(ClawServo_OPEN);
     }
+
     public void closeClaw() {
         isClawOpen = false;
         claw.setPosition(ClawServo_CLOSE);
     }
-    public Command openClawCommand() {
-        return new InstantCommand(this::openClaw);
+
+    public double getClawPosition() {
+        return claw.getPosition();
     }
 
-    public Command closeClawCommand() {
-        return new InstantCommand(this::closeClaw);
+    public boolean getClawState() {
+        return isClawOpen;
     }
-
-    public void setServoController(boolean enable) {
-        if (enable) {
-            claw.getController().pwmEnable();
-
-        } else {
-            claw.getController().pwmDisable();
-
-        }
-    }
-
-
 }
