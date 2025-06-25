@@ -1,9 +1,9 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.acmerobotics.roadrunner.Action;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareDevice;
+import com.qualcomm.robotcore.robot.RobotState;
 
 public class Arm extends SubsystemBase {
     private DcMotor arm = null;
@@ -16,24 +16,31 @@ public class Arm extends SubsystemBase {
     private static final int ARM_POSITION_CLIP_HIGH = 1950;
 
 
-    private enum RobotState{
-        INIT,
-        INTAKE,
-        WALL_GRAB,
-        WALL_UNHOOK,
-        HOVER_HIGH,
-        CLIP_HIGH,
-        LOW_BASKET,
-        MANUAL
-    }
+
     private RobotState currentState = RobotState.INIT;
 
     private int targetArm = 0;
 
-    public Arm(final HardwareDevice hardwareMap) {
-        arm.getClass();
-        arm.getDeviceName();
-        arm.setDirection(DcMotorSimple.Direction.FORWARD);
+    public Arm(DcMotor Arm) {
+        this.arm = Arm;
+        targetArm = ARM_POSITION_INIT;
     }
+
+    public Action wallgrab() {
+        arm.setTargetPosition(ARM_POSITION_WALL_GRAB);
+    }
+
+    public Action wallUnhook(){
+        arm.setTargetPosition(ARM_POSITION_WALL_UNHOOK);
+    }
+
+    public void hover() {
+        arm.setTargetPosition(ARM_POSITION_HOVER_HIGH);
+    }
+
+    public void clipScore() {
+        arm.setTargetPosition(ARM_POSITION_CLIP_HIGH);
+    }
+
 
 }

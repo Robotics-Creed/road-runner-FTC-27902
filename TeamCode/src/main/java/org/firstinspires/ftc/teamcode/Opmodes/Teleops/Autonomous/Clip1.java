@@ -94,8 +94,6 @@ public class Clip1 extends LinearOpMode {
             return;
 
 
-
-
         Actions.runBlocking(
                 new SequentialAction(
                         initScore.build())
@@ -111,12 +109,24 @@ public class Clip1 extends LinearOpMode {
 
         sleep(50);
 
+        objClaw.openClaw();
+
         Actions.runBlocking(
                 new ParallelAction(
-                        pickup.build()
+                        pickup.build(),
+                        objArm.wallgrab()
                 )
         );
+
+        objClaw.closeClaw();
+
         sleep(pickTime);
+
+        objArm.hover();
+
+        Actions.runBlocking(
+
+        );
 
     }
 }
