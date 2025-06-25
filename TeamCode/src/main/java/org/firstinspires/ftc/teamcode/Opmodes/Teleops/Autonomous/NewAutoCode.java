@@ -20,7 +20,7 @@ import org.firstinspires.ftc.teamcode.subsystems.drivetrain.MecanumDrive;
 
 @Config
 @Autonomous(name = "Auto1", group = "Autonomous")
-public class Auto_1 extends LinearOpMode {
+public class NewAutoCode extends LinearOpMode {
 
     public class Arm {
         private DcMotorEx arm;

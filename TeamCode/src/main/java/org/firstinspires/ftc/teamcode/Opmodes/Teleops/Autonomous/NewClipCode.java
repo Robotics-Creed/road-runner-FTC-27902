@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.Odometry.gobilda.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.subsystems.drivetrain.MecanumDrive;
 
 @Autonomous(name = "Clip", group = "Autonomous")
-public final class Clip extends LinearOpMode {
+public final class NewClipCode extends LinearOpMode {
 
     private MecanumDrive drive;
     private GoBildaPinpointDriver odo;

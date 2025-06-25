@@ -105,7 +105,6 @@ public class Clip1 extends LinearOpMode {
                         pickup.build()
                 )
         );
-
         sleep(pickTime);
 
     }
