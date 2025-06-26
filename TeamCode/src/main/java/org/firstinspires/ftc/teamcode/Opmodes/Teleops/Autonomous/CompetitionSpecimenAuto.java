@@ -125,17 +125,20 @@ public class CompetitionSpecimenAuto extends LinearOpMode {
 
             sleep(200);
 
-            // Optionally back up a little
+            // pushes three samples to observation
             encoderDrive(0.4, -6, -6, 0.5);
 
             encoderStrafeRight(0.8, 35,0.5);
 
             encoderDrive(0.7,12,12,0.5);
 
-            encoderStrafeRight(0.8, 12,0.5);
+            encoderStrafeRight(0.8,12,0.5);
 
             encoderDrive(0.7,-45,-45,0.5);
-            encoderStrafeRight(0.8, 12,0.5);
+
+            encoderDrive(0.7,45,45,0.5);
+
+            encoderStrafeRight(0.8,12,0.5);
 
             encoderDrive(0.7,-45,-45,0.5);
 
