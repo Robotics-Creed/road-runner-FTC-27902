@@ -25,7 +25,7 @@ public class Auto_1 extends LinearOpMode {
         private DcMotorEx arm;
 
         public Arm(HardwareMap hardwareMap) {
-            arm = hardwareMap.get(DcMotorEx.class, "armMotor");
+            arm = hardwareMap.get(DcMotorEx.class, "arm");
             arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             arm.setDirection(DcMotorSimple.Direction.FORWARD);
         }
@@ -119,20 +119,32 @@ public class Auto_1 extends LinearOpMode {
         // vision here that outputs position
         int visionOutputPosition = 1;
 
-        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                .lineToYSplineHeading(33, Math.toRadians(0))
-                .waitSeconds(2)
-                .setTangent(Math.toRadians(90))
-                .lineToY(48)
-                .setTangent(Math.toRadians(0))
-                .lineToX(32)
-                .strafeTo(new Vector2d(44.5, 30))
-                .turn(Math.toRadians(180))
-                .lineToX(47.5)
-                .waitSeconds(3);
+        TrajectoryActionBuilder samplePush = drive.actionBuilder(initialPose)
+                .setTangent(Math.toRadians(270))
+                .splineToLinearHeading(new Pose2d(37, -25, Math.toRadians(90)), Math.toRadians(90))
 
 
-        Action trajectoryActionCloseOut = tab1.endTrajectory().fresh()
+                // push sample 1
+                .splineToLinearHeading(new Pose2d(41, -10, Math.toRadians(90)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(45, -25, Math.toRadians(90)), Math.toRadians(270))
+                .splineToLinearHeading(new Pose2d(46, -49, Math.toRadians(90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(46, -25, Math.toRadians(90)), Math.toRadians(90))
+
+                //push sample 2
+                .splineToLinearHeading(new Pose2d(51, -10, Math.toRadians(90)), Math.toRadians(0))
+                .splineToLinearHeading(new Pose2d(55, -25, Math.toRadians(90)), Math.toRadians(270))
+                .splineToLinearHeading(new Pose2d(56, -49, Math.toRadians(90)), Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(56, -25, Math.toRadians(90)), Math.toRadians(90))
+
+                //push sample 3
+                .splineToLinearHeading(new Pose2d(62, -10, Math.toRadians(90)), Math.toRadians(270))
+                .splineToLinearHeading(new Pose2d(62, -25, Math.toRadians(90)), Math.toRadians(270))
+                .splineToLinearHeading(new Pose2d(62, -49, Math.toRadians(90)), Math.toRadians(270))
+                .strafeTo(new Vector2d(3, -10));
+
+
+
+        Action trajectoryActionCloseOut = samplePush.endTrajectory().fresh()
                 .strafeTo(new Vector2d(48, 12))
                 .build();
 
@@ -154,7 +166,7 @@ public class Auto_1 extends LinearOpMode {
         if (isStarted()) return;
 
         Action trajectoryActionChosen;
-        trajectoryActionChosen = tab1.build();
+        trajectoryActionChosen = samplePush.build();
 
         Actions.runBlocking(
                 new SequentialAction(

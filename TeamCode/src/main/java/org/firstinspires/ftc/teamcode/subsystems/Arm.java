@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.robot.RobotState;
 
 public class Arm extends SubsystemBase {
-    private DcMotor arm = null;
+    private final DcMotor arm;
 
     private static final int ARM_POSITION_INIT = 100;
     private static final int ARM_POSITION_INTAKE = 475;
