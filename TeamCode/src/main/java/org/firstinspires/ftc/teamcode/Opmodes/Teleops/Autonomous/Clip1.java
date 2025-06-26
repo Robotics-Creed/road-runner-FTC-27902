@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.Opmodes.Teleops.Autonomous;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import android.service.controls.actions.CommandAction;
 
 import com.acmerobotics.roadrunner.Action;
@@ -11,6 +14,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -42,6 +46,8 @@ public class Clip1 extends LinearOpMode {
 
         long pickTime = 200;
         long scoreTime = 300;
+        double initScoreVal = 4;
+        double scoreDist = 2.5;
 
         Claw objClaw = new Claw(
                 hardwareMap.servo.get("claw")
@@ -54,6 +60,9 @@ public class Clip1 extends LinearOpMode {
         Pose2d initialPose = new Pose2d(3, -61, Math.toRadians(90));
         Pose2d secondPose = new Pose2d(37, -25, Math.toRadians(90));
         Pose2d pickupPose = new Pose2d(36, -50, Math.toRadians(-90));
+        Pose2d fourthPose = new Pose2d(initScoreVal-scoreDist, -30.5, Math.toRadians(90));
+        Pose2d fifthPose = new Pose2d(initScoreVal-(2*scoreDist), -27.5, Math.toRadians(90));
+        Pose2d sixthPose = new Pose2d(initScoreVal-(3*scoreDist), -25, Math.toRadians(90));
 
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
@@ -109,12 +118,13 @@ public class Clip1 extends LinearOpMode {
 
         sleep(50);
 
+        objArm.wallgrab();
+
         objClaw.openClaw();
 
         Actions.runBlocking(
-                new ParallelAction(
-                        pickup.build(),
-                        objArm.wallgrab()
+                new SequentialAction(
+                        pickup.build()
                 )
         );
 

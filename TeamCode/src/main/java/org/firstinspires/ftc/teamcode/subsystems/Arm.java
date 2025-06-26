@@ -26,14 +26,14 @@ public class Arm extends SubsystemBase {
         targetArm = ARM_POSITION_INIT;
     }
 
-    public Action wallgrab() {
+    public void wallgrab() {
         arm.setTargetPosition(ARM_POSITION_WALL_GRAB);
-        return null;
+
     }
 
-    public Action wallUnhook(){
+    public void wallUnhook(){
         arm.setTargetPosition(ARM_POSITION_WALL_UNHOOK);
-        return null;
+
     };
 
     public void hover() {

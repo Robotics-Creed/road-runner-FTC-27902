@@ -55,7 +55,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Config
-public final class MecanumDrive {
+public class MecanumDrive {
 
 
 
@@ -71,12 +71,12 @@ public final class MecanumDrive {
         // drive model parameters
         public double inPerTick = 500.1693337;
         public double lateralInPerTick = inPerTick;
-        public double trackWidthTicks = 4.352550685580185e-14;
+        public double trackWidthTicks = 434317.3427585782;
 
         // feedforward parameters (in tick units)
         public double kS = 0.6697523779648766;
         public double kV = 0.0003644473398906513;
-        public double kA = 0;
+        public double kA = 1;
 
         // path profile parameters (in inches)
         public double maxWheelVel = 50;
