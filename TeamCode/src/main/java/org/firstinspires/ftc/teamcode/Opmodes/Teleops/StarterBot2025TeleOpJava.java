@@ -34,8 +34,8 @@ public class StarterBot2025TeleOpJava extends LinearOpMode {
     private static final int ARM_POSITION_INTAKE = 360;
     private static final int ARM_POSITION_WALL_GRAB = 4450;
     private static final int ARM_POSITION_WALL_UNHOOK = 1200;
-    private static final int ARM_POSITION_HOVER_HIGH = 1600;
-    private static final int ARM_POSITION_CLIP_HIGH = 2000;
+    private static final int ARM_POSITION_HOVER_HIGH = 2000;
+    private static final int ARM_POSITION_CLIP_HIGH = 1900;
     private static final int ARM_POSITION_LOW_BASKET = 1900;
 
     

@@ -16,6 +16,11 @@ public class CompetitionSpecimenAuto extends LinearOpMode {
 
     private DcMotor leftFront, leftBack, rightFront, rightBack, arm;
     private Servo claw;
+    long pickTime = 200;
+    long scoreTime = 300;
+
+    private static final double strafeSpeed = 0.8;
+    private static final double driveSpeed = 0.9;
 
     private static final double CLAW_CLOSED_POSITION = 0.7;
     private static final double CLAW_OPEN_POSITION = 0.55;
@@ -33,14 +38,12 @@ public class CompetitionSpecimenAuto extends LinearOpMode {
 
     //arm
 
-
-    private int ARM_CURRENT_POS = 0;
     private static final int ARM_POSITION_INIT = 100;
     private static final int ARM_POSITION_INTAKE = 475;
     private static final int ARM_POSITION_WALL_GRAB = 4300;
     private static final int ARM_POSITION_WALL_UNHOOK = 4100;
-    private static final int ARM_POSITION_HOVER_HIGH = 1550;
-    private static final int ARM_POSITION_CLIP_HIGH = 1950;
+    private static final int ARM_POSITION_HOVER_HIGH = 2000;
+    private static final int ARM_POSITION_CLIP_HIGH = 1900;
 
     private enum RobotState {
         INIT,
@@ -104,7 +107,7 @@ public class CompetitionSpecimenAuto extends LinearOpMode {
                     arm.setPower(0);
             }
 
-            // Drive forward to observation zone (adjust inches as needed)
+            // Drive forward to clip zone (adjust inches as needed)
             encoderDrive(1, 24, 24, 3.0);  // Move forward 24 inches
 
             sleep(500);
@@ -123,35 +126,35 @@ public class CompetitionSpecimenAuto extends LinearOpMode {
             // Open claw to drop specimen
             claw.setPosition(CLAW_OPEN_POSITION);
 
-            sleep(200);
+            sleep(scoreTime);
 
             // pushes three samples to observation
-            encoderDrive(0.4, -6, -6, 0.5);
+            encoderDrive(driveSpeed, -6, -6, 0.3);
 
-            encoderStrafeRight(0.8, 35,0.5);
+            encoderStrafeRight(strafeSpeed, 35,0.3);
 
-            encoderDrive(0.7,12,12,0.5);
+            encoderDrive(driveSpeed,12,12,0.3);
 
-            encoderStrafeRight(0.8,12,0.5);
+            encoderStrafeRight(strafeSpeed,12,0.3);
 
-            encoderDrive(0.7,-45,-45,0.5);
+            encoderDrive(driveSpeed,-45,-45,0.3);
 
             //push sample 2
-            encoderDrive(0.7,45,45,0.5);
+            encoderDrive(driveSpeed,45,45,0.3);
 
-            encoderStrafeRight(0.8,12,0.5);
+            encoderStrafeRight(strafeSpeed,12,0.3);
 
-            encoderDrive(0.7,-45,-45,0.5);
+            encoderDrive(driveSpeed,-45,-45,0.3);
 
             //push sample three
-            encoderDrive(0.7,45,45,0.1);
+            encoderDrive(driveSpeed,45,45,0.3);
 
-            encoderStrafeRight(0.8,12,0.1);
+            encoderStrafeRight(strafeSpeed,12,0.1);
 
-            encoderDrive(0.7,-45,-45,0.1);
+            encoderDrive(driveSpeed,-45,-45,0.3);
 
             //move to pickup
-            encoderStrafeLeft(0.7,30,3);
+            encoderStrafeLeft(strafeSpeed,30,3);
 
 
         }
