@@ -56,7 +56,6 @@ public class CompetitionSpecimenAuto extends LinearOpMode {
     // Initial state
     private RobotState currentState = RobotState.INIT;
 
-    private int targetArm = 0;
     private int CurrentArmPos = arm.getCurrentPosition();
 
 
@@ -67,12 +66,12 @@ public class CompetitionSpecimenAuto extends LinearOpMode {
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
 
-
         //claw
         claw = hardwareMap.get(Servo.class, "claw");
 
         //arm
         arm = hardwareMap.get(DcMotor.class, "arm");
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // Set directions
         leftBack.setDirection(DcMotor.Direction.REVERSE);
@@ -84,68 +83,40 @@ public class CompetitionSpecimenAuto extends LinearOpMode {
         // Set to RUN_USING_ENCODER
         setRunUsingEncoders();
 
-
         // Wait for game to start
         telemetry.addLine("Ready to run auto");
         telemetry.update();
+
         waitForStart();
-        switch (currentState) {
-            case INIT:
-                targetArm = ARM_POSITION_INIT;
-                telemetry.addData("State", "INIT");
-                break;
 
-            case WALL_GRAB:
-                targetArm = ARM_POSITION_WALL_GRAB;
-                telemetry.addData("State", "WALL_GRAB");
-                break;
-
-            case WALL_UNHOOK:
-                targetArm = ARM_POSITION_WALL_UNHOOK;
-                telemetry.addData("State", "WALL_UNHOOK");
-                break;
-
-            case HOVER:
-                targetArm = ARM_POSITION_HOVER_HIGH;
-                telemetry.addData("State", "HOVER_HIGH");
-                break;
-
-            case CLIP_HIGH:
-                targetArm = ARM_POSITION_CLIP_HIGH;
-                telemetry.addData("State", "CLIP_HIGH");
-                break;
-        }
 
         if (opModeIsActive()) {
-
 
             // Close claw to grab specimen
             claw.setPosition(CLAW_CLOSED_POSITION);
             sleep(100); // wait for claw to grab
 
-            targetArm = ARM_POSITION_HOVER_HIGH;
-
-            while (CurrentArmPos < targetArm)
-                arm.setPower(0.8);
-
-            arm.setPower(0);
-            targetArm = ARM_POSITION_HOVER_HIGH;
+            while (CurrentArmPos != ARM_POSITION_HOVER_HIGH) {
+                if (CurrentArmPos < ARM_POSITION_HOVER_HIGH) {
+                    arm.setPower(0.8);
+                }
+                else
+                    arm.setPower(0);
+            }
 
             // Drive forward to observation zone (adjust inches as needed)
             encoderDrive(1, 24, 24, 3.0);  // Move forward 24 inches
 
             sleep(500);
 
-            while (targetArm != ARM_POSITION_CLIP_HIGH) {
-                if (targetArm < ARM_POSITION_CLIP_HIGH) {
+            // Arm moves up and clips
+            while (CurrentArmPos != ARM_POSITION_CLIP_HIGH) {
+                if (CurrentArmPos < ARM_POSITION_CLIP_HIGH) {
                     arm.setPower(0.8);
                 }
-                else if (targetArm > ARM_POSITION_CLIP_HIGH) {
-                    arm.setPower(-0.8);
-                }
+                else
+                    arm.setPower(0);
             }
-            arm.setPower(0);
-            targetArm = ARM_POSITION_CLIP_HIGH;
 
             sleep(100);
 
@@ -155,9 +126,19 @@ public class CompetitionSpecimenAuto extends LinearOpMode {
             sleep(200);
 
             // Optionally back up a little
-            encoderDrive(0.4, -6, -6, 2.0);
+            encoderDrive(0.4, -6, -6, 0.5);
 
-            encoderStrafeRight(0.8, 5,5);
+            encoderStrafeRight(0.8, 35,0.5);
+
+            encoderDrive(0.7,12,12,0.5);
+
+            encoderStrafeRight(0.8, 12,0.5);
+
+            encoderDrive(0.7,-45,-45,0.5);
+            encoderStrafeRight(0.8, 12,0.5);
+
+            encoderDrive(0.7,-45,-45,0.5);
+
 
         }
     }
