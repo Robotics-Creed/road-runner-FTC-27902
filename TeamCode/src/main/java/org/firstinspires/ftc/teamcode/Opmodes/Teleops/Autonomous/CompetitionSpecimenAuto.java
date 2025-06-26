@@ -136,11 +136,22 @@ public class CompetitionSpecimenAuto extends LinearOpMode {
 
             encoderDrive(0.7,-45,-45,0.5);
 
+            //push sample 2
             encoderDrive(0.7,45,45,0.5);
 
             encoderStrafeRight(0.8,12,0.5);
 
             encoderDrive(0.7,-45,-45,0.5);
+
+            //push sample three
+            encoderDrive(0.7,45,45,0.1);
+
+            encoderStrafeRight(0.8,12,0.1);
+
+            encoderDrive(0.7,-45,-45,0.1);
+
+            //move to pickup
+            encoderStrafeLeft(0.7,30,3);
 
 
         }
